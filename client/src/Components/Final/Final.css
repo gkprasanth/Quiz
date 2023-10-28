@@ -1,0 +1,14 @@
+img {
+    align-items: center;
+    justify-content: center;
+    padding-left: 500px;
+    
+}
+.headcongo{
+    padding-left: 450px;
+    font-family: 'Poppins', sans-serif;
+}
+.score {
+    padding-left: 550px;
+    font-family: 'Poppins', sans-serif;
+}

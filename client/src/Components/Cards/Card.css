@@ -1,0 +1,20 @@
+.card {
+  background-color: #f0f0f0;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px;
+}
+
+.card-value {
+  font-size: 24px;
+  color: #212020;
+}
+
+.card-title {
+  font-size: 16px;
+  color: #3f3e3e;
+}
+
+
