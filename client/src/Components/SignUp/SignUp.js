@@ -29,7 +29,7 @@ function SignUp() {
     const { name, email, password, confirmPassword } = formData;
     const newErrors = {};
 
-    const emailRegex = /^\S+@\S+\.\S+$/; // Basic email format regex
+    const emailRegex = /^\S+@\S+\.\S+$/; 
 
     if (!name) {
       newErrors.name = 'Name is required';
