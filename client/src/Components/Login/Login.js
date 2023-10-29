@@ -65,7 +65,7 @@ function Login() {
         toast.success("Login successful");
         console.log("Login Successful", responseData);
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/signup');
         }, 2000);
       } else {
         const errorData = await response.json();
