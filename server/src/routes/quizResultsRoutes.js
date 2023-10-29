@@ -11,7 +11,6 @@ router.get('/user/:userId', resultController.getResultsForUser);
 // Get a specific result by result ID
 router.get('/:resultId', resultController.getResultById);
 
-// Add more routes and controllers for creating, updating, and deleting results if needed
-// ...
+
 
 module.exports = router;

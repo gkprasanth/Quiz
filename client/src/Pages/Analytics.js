@@ -1,37 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaShare } from 'react-icons/fa';
-import DeleteModal from '../Components/Modals/DeleteModal'; // Import the DeleteModal component
+import DeleteModal from '../Components/Modals/DeleteModal';
+import EditModal from '../Components/Modals/EditModal';
+import axios from 'axios';
+
 import '../App.css';
 
-const dummyQuizData = [
-  {
-    quizName: 'Quiz 1',
-    createdOn: '2023-01-01',
-    impression: 500,
-    // analysisLink: 'https://example.com/quiz1',
-  },
-  {
-    quizName: 'Quiz 2',
-    createdOn: '2023-02-15',
-    impression: 800,
-    // analysisLink: 'https://example.com/quiz2',
-  },
-  {
-    quizName: 'Quiz 3',
-    createdOn: '2023-03-20',
-    impression: 1200,
-    // analysisLink: 'https://example.com/quiz3',
-  },
-];
+const API_BASE_URL = 'http://localhost:4000/quiz';
 
 const Analytics = () => {
-  const [quizData, setQuizData] = useState(dummyQuizData);
+  const [quizData, setQuizData] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [selectedQuizId, setSelectedQuizId] = useState();
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchQuizData();
+  }, []);
+
+  const fetchQuizData = () => {
+    axios
+      .get(`${API_BASE_URL}/list`)
+      .then((response) => {
+        setQuizData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching quiz data:', error);
+      });
+  };
 
   const openDeleteModal = (quiz) => {
-    setSelectedQuiz(quiz);
+    setSelectedQuizId(quiz.quizId);
     setDeleteModalOpen(true);
   };
 
@@ -40,9 +40,36 @@ const Analytics = () => {
   };
 
   const handleDelete = () => {
-   
-    setQuizData((prevData) => prevData.filter((quiz) => quiz !== selectedQuiz));
-    setDeleteModalOpen(false);
+    axios
+      .delete(`${API_BASE_URL}/${selectedQuizId}`)
+      .then(() => {
+        fetchQuizData();
+        setDeleteModalOpen(false);
+      })
+      .catch((error) => {
+        console.error('Error deleting quiz:', error);
+      });
+  };
+
+  const openEditModal = (quiz) => {
+    setSelectedQuizId(quiz.quizId);
+    setEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+  };
+
+  const handleEdit = (updatedQuizData) => {
+    axios
+      .put(`${API_BASE_URL}/${selectedQuizId}`, updatedQuizData)
+      .then(() => {
+        fetchQuizData();
+        setEditModalOpen(false);
+      })
+      .catch((error) => {
+        console.error('Error editing quiz:', error);
+      });
   };
 
   return (
@@ -60,13 +87,13 @@ const Analytics = () => {
         </thead>
         <tbody>
           {quizData.map((quiz, index) => (
-            <tr key={index} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
+            <tr key={quiz.quizId} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
               <td>{index + 1}</td>
               <td>{quiz.quizName}</td>
               <td>{quiz.createdOn}</td>
               <td>{quiz.impression}</td>
               <td>
-                <span className="action-edit">
+                <span className="action-edit" onClick={() => openEditModal(quiz)}>
                   <FaEdit />
                 </span>
                 <span className="action-del" onClick={() => openDeleteModal(quiz)}>
@@ -75,19 +102,32 @@ const Analytics = () => {
                 <span className="action-share">
                   <FaShare />
                 </span>
-                <Link className="analysis-link">Quiz wise Analysis</Link>
+                <Link to={`/analysis/${quiz.quizId}`} className="analysis-link">
+                  Quiz wise Analysis
+                </Link>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <DeleteModal
-        isOpen={isDeleteModalOpen}
-        onRequestClose={closeDeleteModal}
-        onDelete={handleDelete}
-        quiz={selectedQuiz}
-      />
+      {isDeleteModalOpen && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onRequestClose={closeDeleteModal}
+          onDelete={handleDelete}
+          quiz={selectedQuizId}
+        />
+      )}
+
+      {isEditModalOpen && (
+        <EditModal
+          isOpen={isEditModalOpen}
+          onRequestClose={closeEditModal}
+          onEdit={handleEdit}
+          quiz={selectedQuizId}
+        />
+      )}
     </div>
   );
 };

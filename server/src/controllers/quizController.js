@@ -1,4 +1,5 @@
 const Quiz = require('../models/quizModel'); // Import the Quiz model
+const mongoose = require('mongoose');
 
 // Create a new quiz
 exports.createQuiz = async (req, res) => {
@@ -50,16 +51,26 @@ exports.updateQuiz = async (req, res) => {
   }
 };
 
-// Delete a quiz by its ID
+//Deleted Quiz By ID
 exports.deleteQuiz = async (req, res) => {
   const { quizId } = req.params;
+
   try {
+    if (!mongoose.Types.ObjectId.isValid(quizId)) {
+      return res.status(400).json({ error: 'Invalid quizId format' });
+    }
+
     const deletedQuiz = await Quiz.findByIdAndRemove(quizId);
+
     if (!deletedQuiz) {
       return res.status(404).json({ error: 'Quiz not found.' });
     }
-    res.json(deletedQuiz);
+
+    res.status(200).json({ "Deleted": true });
   } catch (error) {
+    console.error('Failed to delete the quiz:', error);
     res.status(500).json({ error: 'Failed to delete the quiz.' });
   }
-};
+}
+
+

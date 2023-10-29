@@ -21,6 +21,15 @@ const App = () => {
         <Route path="/analytics" element={loggedIn ? <Analytics /> : <Login />} />
         <Route path="/create" element={loggedIn ? <CreateQuiz /> : <Login />} />
       </Routes>
+      <Sidebar>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          {/* <Route  path='/final' element={<Final />} /> */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path='/create' element={<CreateQuiz />} />
+        </Routes>
+      </Sidebar>
     </BrowserRouter>
   );
 };
