@@ -1,58 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import "./Questions.css";
+import './Questions.css';
 
-const QuizQuestion = ({ onSelect }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [quizList, setQuizList] = useState([]);
+const QuizQuestionPage = () => {
+  const [question, setQuestion] = useState("What is the capital of France?");
+  const [answers, setAnswers] = useState(['Paris', 'London', 'Berlin', 'Madrid']);
+  const [correctAnswer] = useState('Paris'); // Set the correct answer
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [score, setScore] = useState(0);
+  const [time, setTime] = useState(10);
 
-  useEffect(() => {
-    // Define the URL for your API
-    const apiUrl = 'http://localhost:4000/quiz/list';
-
-    // Make an API request when the component mounts
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        // Update the quiz list state with the data from the API
-        setQuizList(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching quiz list:', error);
-      });
-  }, []);
-
-  const questions = [
-    {
-      question: "What is the capital of France?",
-      options: ['Paris', 'London', 'Berlin', 'Madrid'],
-    },
-  ];
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    onSelect(option);
+  // Function to handle answer selection
+  const handleAnswerSelect = (selectedOption) => {
+    if (selectedAnswer === null) {
+      setSelectedAnswer(selectedOption);
+      if (selectedOption === correctAnswer) {
+        setScore(score + 0.4);
+      }
+    }
   };
 
+  // Timer countdown effect
+  useEffect(() => {
+    if (time > 0) {
+      const timer = setTimeout(() => {
+        setTime(time - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [time]);
+
   return (
-    <div className="quiz-question">
-      {quizList.map((quiz, questionIndex) => (
-        <div key={questionIndex}>
-          <p className="question-paragraph">{quiz.question}</p>
-          <div className="options">
-            {quiz.options.map((option, optionIndex) => (
-              <div
-                key={optionIndex}
-                className={`option ${selectedOption === option ? 'selected' : ''}`}
-                onClick={() => handleOptionSelect(option)}
-              >
-                {option}
-              </div>
-            ))}
+    <div className="quiz-question-page">
+      <p>{question}</p>
+      <div className="answers">
+        {answers.map((answer, index) => (
+          <div
+            key={index}
+            className={`answer ${selectedAnswer === answer ? (answer === correctAnswer ? 'correct' : 'wrong') : ''}`}
+            onClick={() => handleAnswerSelect(answer)}
+          >
+            {answer}
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      <p>Score: {score}</p>
+      <p>Time: 00:{time < 10 ? `0${time}` : time}s</p>
     </div>
   );
 };
 
-export default QuizQuestion;
+export default QuizQuestionPage;
