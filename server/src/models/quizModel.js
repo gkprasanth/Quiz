@@ -35,6 +35,8 @@ const quizSchema = new mongoose.Schema({
   },
   title: String,
   description: String,
+  createdOn: Date,
+  impression: Number,
   questions: [mongoose.Schema.Types.Mixed],
   results: [resultSchema],
   shareLink: String, 
