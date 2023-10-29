@@ -4,9 +4,9 @@ import Sidebar from './Components/SideBar/SideBar';
 import Dashboard from './Pages/DashBoard';
 import Analytics from './Pages/Analytics';
 import CreateQuiz from './Pages/CreateQuiz';
-import Final from './Components/Final/Final';
+// import Final from './Components/Final/Final';
 import Login from './Components/Login/Login';
-import QuizQuestion from './Components/Questions/Questions';
+// import QuizQuestion from './Components/Questions/Questions';
 
 const App = () => {
   return (
