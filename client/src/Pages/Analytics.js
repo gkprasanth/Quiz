@@ -40,10 +40,7 @@ const Analytics = () => {
   };
 
   const handleDelete = () => {
-    // Implement your delete logic here
-    // After successful deletion, update the quizData state
-
-    // For the example, we'll just remove the selectedQuiz from the state:
+   
     setQuizData((prevData) => prevData.filter((quiz) => quiz !== selectedQuiz));
     setDeleteModalOpen(false);
   };
