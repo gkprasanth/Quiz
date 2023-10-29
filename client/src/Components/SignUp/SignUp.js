@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import './SignUp.css'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function SignUp() {
   const history = useNavigate();
@@ -90,11 +92,16 @@ function SignUp() {
   };
 
   return (
-    <div>
-      <h1>Signup</h1>
+    <div className='signup-container'>
       <form onSubmit={handleSubmit}>
+           <h1 className="title">QUIZZIE</h1>
+              <div className="both">
+                
+                <h3 className="imp" >Sign Up</h3>
+                 <h3 className="imp"><Link className='check' to='/'>Log In</Link></h3>
+              </div>
         <div>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name" style={{marginRight : "20px"}}>Name</label>
           <input
             type="text"
             id="name"
@@ -102,10 +109,18 @@ function SignUp() {
             value={formData.name}
             onChange={handleChange}
             placeholder={errors.name}
+            style={{height: "20px",
+              width : "300px",
+              margin: "15px",
+              borderRadius: "3px",
+              marginLeft: "10px",
+               border :"rgba(0.5, 0.5, 0.5, 0.5)",
+               backgroundColor:" #f0f0f0"
+            }}
           />
         </div>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email" style={{marginRight : "20px"}}>Email</label>
           <input
             type="email"
             id="email"
@@ -113,10 +128,18 @@ function SignUp() {
             value={formData.email}
             onChange={handleChange}
             placeholder={errors.email}
+            style={{height: "20px",
+              width : "300px",
+              margin: "15px",
+              borderRadius: "3px",
+              marginLeft: "10px",
+               border :"rgba(0.5, 0.5, 0.5, 0.5)",
+               backgroundColor:" #f0f0f0"
+            }}
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password"  style={{marginRight : "1px"}}>Password</label>
           <input
             type="password"
             id="password"
@@ -124,10 +147,18 @@ function SignUp() {
             value={formData.password}
             onChange={handleChange}
             placeholder={errors.password}
+            style={{height: "20px",
+              width : "300px",
+              margin: "15px",
+              borderRadius: "3px",
+              marginLeft: "10px",
+               border :"rgba(0.5, 0.5, 0.5, 0.5)",
+               backgroundColor:" #f0f0f0"
+            }}
           />
         </div>
         <div>
-          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <label htmlFor="confirmPassword" style={{marginRight : "10px"}}>Confirm Password</label>
           <input
             type="password"
             id="confirmPassword"
@@ -135,6 +166,14 @@ function SignUp() {
             value={formData.confirmPassword}
             onChange={handleChange}
             placeholder={errors.confirmPassword}
+            style={{height: "20px",
+              width : "300px",
+              margin: "15px",
+              borderRadius: "3px",
+              marginLeft: "10px",
+               border :"rgba(0.5, 0.5, 0.5, 0.5)",
+               backgroundColor:" #f0f0f0"
+            }}
           />
         </div>
         <button type="submit">Sign Up</button>
