@@ -5,13 +5,15 @@ import Dashboard from './Pages/DashBoard';
 import Analytics from './Pages/Analytics';
 import CreateQuiz from './Pages/CreateQuiz';
 import Final from './Components/Final/Final';
+import Login from './Components/Login/Login';
+import QuizQuestion from './Components/Questions/Questions';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Sidebar>
         <Routes>
-          <Route path="/" element={<Final/>} />
+          <Route path="/" element={<QuizQuestion />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path='/create' element={<CreateQuiz />} />

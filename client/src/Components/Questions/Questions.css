@@ -1,0 +1,32 @@
+.quiz-question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh; /* Make the component take up the full viewport height */
+  }
+  
+  .question-paragraph {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .option {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .option.selected {
+    background-color: #4caf50;
+    color: white;
+  }
+  

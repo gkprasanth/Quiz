@@ -35,9 +35,22 @@ const quizSchema = new mongoose.Schema({
   },
   title: String,
   description: String,
-  questions: [mongoose.Schema.Types.Mixed], 
+  questions: [mongoose.Schema.Types.Mixed],
   results: [resultSchema],
+  shareLink: String, 
 });
+
+quizSchema.pre('save', function (next) {
+  const uniqueShareLink = UniqueShareLink();
+  this.shareLink = uniqueShareLink;
+  next();
+});
+
+function UniqueShareLink() {
+  const uuid = require('uuid');
+  return uuid.v4();
+}
+
 
 const Quiz = mongoose.model('Quiz', quizSchema);
 

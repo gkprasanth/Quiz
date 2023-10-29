@@ -8,6 +8,7 @@ exports.createQuiz = async (req, res) => {
     res.json(newQuiz);
   } catch (error) {
     res.status(500).json({ error: 'Failed to create the quiz.' });
+    console.error(error);
   }
 };
 
