@@ -1,18 +1,33 @@
+.sidebar {
+  position: fixed; /* Make the sidebar fixed */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 15%;
+  background-color: white;
+  color: #474444;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-shadow: 6px 0px 15px 1px rgba(0,0,0,0.47);
+}
+
 .container {
   display: flex;
   height: 100%;
 }
 
 .sidebar {
-    height: 690px;
-  width: 250px;
+  height: 690px;
+  width: 15%;
   background-color: white;
-  color: black;
+  color: #474444;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
-  
+  padding: 20px;  
+  box-shadow: 6px 0px 15px 1px rgba(0,0,0,0.47);
 }
 
 .top_section {
@@ -24,6 +39,7 @@
 .logo {
   font-size: 24px;
   font-weight: bold;
+  text-align: center;
 }
 
 .bars {
@@ -37,12 +53,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
 }
 
 .link {
   text-decoration: none;
   padding: 20px 0;
-  color: black;
+  color: #474444;
   transition: color 0.2s;
   font-weight: 700;
 }
@@ -53,6 +70,8 @@
 
 .link_text {
   font-size: 20px;
+  text-align: center;
+   
 }
 
 .logout {
