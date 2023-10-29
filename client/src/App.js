@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Sidebar from './Components/SideBar/SideBar';
 import Dashboard from './Pages/DashBoard';
@@ -9,6 +9,8 @@ import Login from './Components/Login/Login';
 import QuizQuestion from './Components/Questions/Questions';
 
 const App = () => {
+
+  const [loggedIn, setLoggedIn] = useState(false)
   return (
     <BrowserRouter>
       <Sidebar>
