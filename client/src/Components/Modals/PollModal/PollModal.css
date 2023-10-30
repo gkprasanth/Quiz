@@ -1,4 +1,9 @@
-/* Modal Styles */
+Modal Styles
+.container{
+  width: 100vw;
+  height: 100vh;
+}
+
 .modal {
     position: fixed;
     top: 0;
@@ -9,39 +14,108 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  
+  }
+
+  .modal-header{
+    display: flex;
+    justify-content: space-between;
+    color: #9f9f9f;
+    font-weight: 500;
+    padding: 10px;
+  }
+
+
+  /* .options-buttons{
+    width: 100%;
+    
+    display: flex;
+     
+    justify-content: center;
+  } */
+
+  #question{
+    box-shadow: 3px 0px 15px 1px rgba(0,0,0,0.2);
+    background-color: white;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    width: 90%;
+    outline: none;
+    border-radius: 10px;
+  }
+
+  .text-options{
+    flex: 1;
+    width: 100%;
+  }
+
+  .timer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 50%;
+    justify-content: center;
+  }
+
+  .timer-button{
+    width: 150px;
+    box-shadow: 3px 0px 15px 1px rgba(0,0,0,0.2);
+    background-color: white;
+    color: black;
+  }
+
+  #text-input{
+    box-shadow: 3px 0px 15px 1px rgba(0,0,0,0.2);
+    background-color: white;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    width:40%;
+    outline: none;
+    border-radius: 10px;
   }
   
   .modal-content {
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-    width: 500px;
+    width: 50%;
     max-width: 90%;
+    height: auto;
   }
   
   /* Form Styles */
-  label {
-    display: inline;
-    margin-bottom: 5px;
-  }
   
-  button {
+
+   
+.mid{
+  width: 100%;
+  display: flex;
+}
+
+  
+  /* button {
     padding: 10px;
     border-radius: 5px;
     border: none;
     font-size: 16px;
     color: #fff;
     cursor: pointer;
-  }
+  } */
   
-  button {
+  /* button {
     background: #007bff;
-  }
+  } */
   
-  button + button {
+  /* button + button {
     margin-left: 10px;
   }
-  
+   */
   .delete-icon {
     color: #f00;
     cursor: pointer;
