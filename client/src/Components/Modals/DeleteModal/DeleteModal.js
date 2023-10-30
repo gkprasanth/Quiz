@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import "./DeleteModal.css"; 
-// Modal.setAppElement('#root'); 
+Modal.setAppElement('#root'); 
 
 const DeleteModal = ({ isOpen, onRequestClose, onDelete }) => {
   return (
