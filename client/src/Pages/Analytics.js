@@ -24,6 +24,7 @@ const Analytics = () => {
       .get(`${API_BASE_URL}/list`)
       .then((response) => {
         setQuizData(response.data);
+        console.log(response)
       })
       .catch((error) => {
         console.error('Error fetching quiz data:', error);
@@ -31,7 +32,7 @@ const Analytics = () => {
   };
 
   const openDeleteModal = (quiz) => {
-    setSelectedQuizId(quiz.quizId);
+    setSelectedQuizId(quiz._id);
     setDeleteModalOpen(true);
   };
 
@@ -45,14 +46,16 @@ const Analytics = () => {
       .then(() => {
         fetchQuizData();
         setDeleteModalOpen(false);
+        console.log(selectedQuizId)
       })
       .catch((error) => {
         console.error('Error deleting quiz:', error);
+        console.log(selectedQuizId)
       });
   };
 
   const openEditModal = (quiz) => {
-    setSelectedQuizId(quiz.quizId);
+    setSelectedQuizId(quiz._id);
     setEditModalOpen(true);
   };
 
@@ -87,10 +90,10 @@ const Analytics = () => {
         </thead>
         <tbody>
           {quizData.map((quiz, index) => (
-            <tr key={quiz.quizId} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
+            <tr key={quiz._id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
               <td>{index + 1}</td>
-              <td>{quiz.quizName}</td>
-              <td>{quiz.createdOn}</td>
+              <td>{quiz.name}</td>
+              <td>{quiz.createdAt}</td>
               <td>{quiz.impression}</td>
               <td>
                 <span className="action-edit" onClick={() => openEditModal(quiz)}>
@@ -102,7 +105,7 @@ const Analytics = () => {
                 <span className="action-share">
                   <FaShare />
                 </span>
-                <Link to={`/analysis/${quiz.quizId}`} className="analysis-link">
+                <Link to={`/analysis/${quiz._id}`} className="analysis-link">
                   Quiz wise Analysis
                 </Link>
               </td>

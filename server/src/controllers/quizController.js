@@ -53,7 +53,7 @@ exports.updateQuiz = async (req, res) => {
 
 //Deleted Quiz By ID
 exports.deleteQuiz = async (req, res) => {
-  const { quizId } = req.params;
+  const { quizId } = req.body;
 
   try {
     if (!mongoose.Types.ObjectId.isValid(quizId)) {

@@ -49,26 +49,29 @@ function PollModal() {
   };
 
   return (
-    <div>
+    <div className='container' >
       <button className="create-quiz-button" onClick={openModal}>
         Create Poll
       </button>
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Poll Questions</h2>
+            <div className='modal-header' >
+              <button>1</button>
+              <p>Max 5 questions</p>
+            </div>
             <div className="options-timer">
               <div className="options-buttons">
-                <label htmlFor="question">Question:</label>
                 <input
                   type="text"
                   id="question"
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
+                  placeholder="Poll Question"
                 />
               </div>
               <div className="options-buttons">
-                <label htmlFor="options">Options:</label>
+                <label htmlFor="options">Option Type</label>
                 <div className="radio-buttons">
                   <label>
                     <input
@@ -99,36 +102,21 @@ function PollModal() {
                   </label>
                 </div>
               </div>
-              <div className="options-buttons">
-                <label htmlFor="timer">Timer:</label>
-                <button
-                  className={timer === '5' ? 'selected' : ''}
-                  onClick={() => setTimer('5')}
-                >
-                  5 seconds
-                </button>
-                <button
-                  className={timer === '10' ? 'selected' : ''}
-                  onClick={() => setTimer('10')}
-                >
-                  10 seconds
-                </button>
-                <button
-                  className={timer === 'off' ? 'selected' : ''}
-                  onClick={() => setTimer('off')}
-                >
-                  Off
-                </button>
-              </div>
+              
             </div>
+            <div  className='mid'  >
+
+
             {options === 'text' && (
-              <div>
+              <div  className='text-options' >
                 <label htmlFor="textUrls">Text</label>
                 {textUrls.map((textUrl, index) => (
                   <div key={index}>
                     <input
                       type="text"
                       value={textUrl}
+                      id={'text-input'}
+                      placeholder='Text'
                       onChange={(e) => {
                         const updatedTextUrls = [...textUrls];
                         updatedTextUrls[index] = e.target.value;
@@ -245,7 +233,36 @@ function PollModal() {
                 </div>
               </div>
             )}
-            <div className="buttons">
+
+
+
+
+            <div className="timer">
+                <label htmlFor="timer">Timer</label>
+                
+                <button
+                  className={timer === '0' ? 'selected' : 'timer-button'}
+                  onClick={() => setTimer('5')}
+                >
+                  5 seconds
+                </button>
+                <button
+                  className={timer === '10' ? 'selected' : 'timer-button'}
+                  onClick={() => setTimer('10')}
+                >
+                  10 seconds
+                </button>
+
+                <button
+                  className={timer === 'off' ? 'selected' : 'timer-button'}
+                  onClick={() => setTimer('off')}
+                >
+                  Off
+                </button>
+              </div>
+            </div>
+            
+          <div className="buttons">
               <button className="add-question-button" onClick={createQuestion}>
                 Add Question
               </button>
@@ -254,8 +271,11 @@ function PollModal() {
               </button>
             </div>
           </div>
+
         </div>
       )}
+
+      
     </div>
   );
 }

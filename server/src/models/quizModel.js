@@ -9,7 +9,8 @@ const pollOptionSchema = new mongoose.Schema({
   text: String,
   imageUrl: String,
   votes: Number,
-});
+}
+);
 
 const qnaQuestionSchema = new mongoose.Schema({
   text: String,
@@ -39,8 +40,9 @@ const quizSchema = new mongoose.Schema({
   impression: Number,
   questions: [mongoose.Schema.Types.Mixed],
   results: [resultSchema],
-  shareLink: String, 
-});
+  shareLink: String,
+}, 
+{ timestamps: true });
 
 quizSchema.pre('save', function (next) {
   const uniqueShareLink = UniqueShareLink();
