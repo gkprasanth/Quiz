@@ -3,8 +3,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Signup from '../SignUp/SignUp'
-import './login.css'
+import './Login.css'
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -12,6 +11,7 @@ function Login() {
     password: "",
     name: "", 
   });
+  
 
   const [error, setError] = useState({
     email: "",
@@ -36,7 +36,6 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!formData.email) {
       setError({ ...error, email: "Email is required" });
       return;
@@ -47,7 +46,6 @@ function Login() {
       return;
     }
 
-    // Email validation
     const emailRegex = /^\S+@\S+\.\S+$/; 
     if (!emailRegex.test(formData.email)) {
       setError({ ...error, email: "Invalid email format" });
@@ -63,12 +61,12 @@ function Login() {
         body: JSON.stringify(formData),
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         const responseData = await response.json();
         toast.success("Login successful");
         console.log("Login Successful", responseData);
         setTimeout(() => {
-          navigate('/signup');
+          navigate('/dashboard');
         }, 2000);
       } else {
         const errorData = await response.json();
@@ -89,9 +87,6 @@ function Login() {
   return (
     <div className="whole" >
       <div className="box">
-      {/* <div className="dis">
-        <h1>Login</h1>
-      </div> */}
       <form onSubmit={handleSubmit}>
               <h1 className="title">QUIZZIE</h1>
               <div className="both">
