@@ -3,15 +3,15 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Signup from '../SignUp/SignUp'
 import './login.css'
 
-function Login() {
+function Login({checkAuth}) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "", 
   });
+  
 
   const [error, setError] = useState({
     email: "",
@@ -36,7 +36,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    checkAuth(true);
     if (!formData.email) {
       setError({ ...error, email: "Email is required" });
       return;
@@ -47,7 +47,6 @@ function Login() {
       return;
     }
 
-    // Email validation
     const emailRegex = /^\S+@\S+\.\S+$/; 
     if (!emailRegex.test(formData.email)) {
       setError({ ...error, email: "Invalid email format" });
@@ -63,12 +62,12 @@ function Login() {
         body: JSON.stringify(formData),
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         const responseData = await response.json();
         toast.success("Login successful");
         console.log("Login Successful", responseData);
         setTimeout(() => {
-          navigate('/signup');
+          navigate('/dashboard');
         }, 2000);
       } else {
         const errorData = await response.json();

@@ -35,7 +35,7 @@ const quizSchema = new mongoose.Schema({
   },
   title: String,
   description: String,
-  createdOn: Date.now(),
+  createdOn: Date,
   impression: Number,
   questions: [mongoose.Schema.Types.Mixed],
   results: [resultSchema],

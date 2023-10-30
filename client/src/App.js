@@ -5,30 +5,24 @@ import Dashboard from './Pages/DashBoard';
 import Analytics from './Pages/Analytics';
 import CreateQuiz from './Pages/CreateQuiz';
 import Login from './Components/Login/Login';
-import SignUp from './Components/SignUp/SignUp';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+
+ let checkAuth = (value) =>  {
+    setLoggedIn(value);
+   }
 
   return (
     <BrowserRouter>
       {loggedIn && <Sidebar />}
       <Routes>
-        <Route path="/" element={loggedIn ? <Dashboard /> : <Login />} />
+        <Route path="/" element={loggedIn ? <Dashboard /> : <Login  checkAuth={checkAuth}/>} />
         {/* <Route path="/signup" element={<SignUp/>} /> */}
-        <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Login />} />
-        <Route path="/analytics" element={loggedIn ? <Analytics /> : <Login />} />
-        <Route path="/create" element={loggedIn ? <CreateQuiz /> : <Login />} />
+        <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Login  checkAuth={checkAuth} />} />
+        <Route path="/analytics" element={loggedIn ? <Analytics /> : <Login  checkAuth={checkAuth} />} />
+        <Route path="/create" element={loggedIn ? <CreateQuiz /> : <Login  checkAuth={checkAuth} />} />
       </Routes>
-      <Sidebar>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          {/* <Route  path='/final' element={<Final />} /> */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path='/create' element={<CreateQuiz />} />
-        </Routes>
-      </Sidebar>
     </BrowserRouter>
   );
 };
