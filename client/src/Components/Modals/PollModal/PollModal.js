@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
-import './PollModal.css';
+import './PollModal.css'
 
 function PollModal() {
   const [question, setQuestion] = useState('');
@@ -105,8 +105,6 @@ function PollModal() {
               
             </div>
             <div  className='mid'  >
-
-
             {options === 'text' && (
               <div  className='text-options' >
                 <label htmlFor="textUrls">Text</label>
@@ -136,7 +134,7 @@ function PollModal() {
                   </div>
                 ))}
                 {textUrls.length < 4 && (
-                  <button onClick={addTextUrlInput}>+</button>
+                  <button className='btn' onClick={addTextUrlInput}>+</button>
                 )}
               </div>
             )}
