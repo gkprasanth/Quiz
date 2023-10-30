@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import './Login.css'
 
-function Login({checkAuth}) {
+function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -36,7 +36,6 @@ function Login({checkAuth}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    checkAuth(true);
     if (!formData.email) {
       setError({ ...error, email: "Email is required" });
       return;
@@ -88,9 +87,6 @@ function Login({checkAuth}) {
   return (
     <div className="whole" >
       <div className="box">
-      {/* <div className="dis">
-        <h1>Login</h1>
-      </div> */}
       <form onSubmit={handleSubmit}>
               <h1 className="title">QUIZZIE</h1>
               <div className="both">
