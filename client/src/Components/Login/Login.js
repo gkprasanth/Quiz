@@ -3,7 +3,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import './login.css'
+import './Login.css'
 
 function Login({checkAuth}) {
   const [formData, setFormData] = useState({
