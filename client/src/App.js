@@ -8,7 +8,6 @@ import Login from './Components/Login/Login';
 import SignUp from './Components/SignUp/SignUp';
 
 const App = () => {
-  // Use useState to manage the login state, set it to false initially if the user is not logged in.
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
@@ -16,7 +15,7 @@ const App = () => {
       {loggedIn && <Sidebar />}
       <Routes>
         <Route path="/" element={loggedIn ? <Dashboard /> : <Login />} />
-        <Route path="/signup" element={<SignUp/>} />
+        {/* <Route path="/signup" element={<SignUp/>} /> */}
         <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Login />} />
         <Route path="/analytics" element={loggedIn ? <Analytics /> : <Login />} />
         <Route path="/create" element={loggedIn ? <CreateQuiz /> : <Login />} />
