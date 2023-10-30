@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaShare } from 'react-icons/fa';
-import DeleteModal from '../Components/Modals/DeleteModal';
-import EditModal from '../Components/Modals/EditModal';
+import DeleteModal from '../Components/Modals/DeleteModal/DeleteModal';
 import axios from 'axios';
 
 import '../App.css';
@@ -119,15 +118,15 @@ const Analytics = () => {
           quiz={selectedQuizId}
         />
       )}
-
-      {isEditModalOpen && (
+{/* 
+      {/* {isEditModalOpen && (
         <EditModal
           isOpen={isEditModalOpen}
           onRequestClose={closeEditModal}
           onEdit={handleEdit}
           quiz={selectedQuizId}
-        />
-      )}
+        /> */}
+      }} */}
     </div>
   );
 };

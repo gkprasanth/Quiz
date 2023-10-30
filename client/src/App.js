@@ -4,10 +4,10 @@ import Sidebar from './Components/SideBar/SideBar';
 import Dashboard from './Pages/DashBoard';
 import Analytics from './Pages/Analytics';
 import CreateQuiz from './Pages/CreateQuiz';
+import Signup from './Components/SignUp/SignUp'
 import Login from './Components/Login/Login';
-
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
  let checkAuth = (value) =>  {
     setLoggedIn(value);
@@ -18,7 +18,7 @@ const App = () => {
       {loggedIn && <Sidebar />}
       <Routes>
         <Route path="/" element={loggedIn ? <Dashboard /> : <Login  checkAuth={checkAuth}/>} />
-        {/* <Route path="/signup" element={<SignUp/>} /> */}
+        <Route path="/signup" element={<Signup/>} />
         <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Login  checkAuth={checkAuth} />} />
         <Route path="/analytics" element={loggedIn ? <Analytics /> : <Login  checkAuth={checkAuth} />} />
         <Route path="/create" element={loggedIn ? <CreateQuiz /> : <Login  checkAuth={checkAuth} />} />
