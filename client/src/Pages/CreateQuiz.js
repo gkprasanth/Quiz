@@ -1,10 +1,9 @@
 import React from "react";
-// import PollModal from "../Components/Modals/PollModal/PollModal";
-// import LinkModal from "../Components/Modals/LinkModal/LinkModal";
-import QuizModal from '../Components/Modals/QuizModal/QuizModal'
+
+import PollModal from "../Components/Modals/PollModal/PollModal";
 const CreateQuiz = () => {
   return <>
-  <QuizModal />
+  <PollModal />
   </>;
 };
 

@@ -1,0 +1,65 @@
+body {
+    background: #EDEDED;
+
+}
+.qhead {
+    text-align: center;
+    padding-top: 70px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+}
+
+table {
+    background-color: aqua;
+    border-collapse: collapse;
+    margin: 0 auto; 
+    margin-top: 50px;
+    width: 50%;
+}
+
+thead {
+    background-color:  #5076FF;
+    border: none; 
+    font-family: "Poppins", sans-serif;
+}
+
+th {
+    margin-right: 100px;
+    padding-left: 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+td {
+    padding-left: 15px;
+    padding-top: 7px;
+    text-align: center;
+    border: none;
+    font-family: "Poppins", sans-serif; 
+}
+.analysis-link {
+        color: black;
+}
+
+.action-edit {
+    padding-right: 20px;
+    color: #854CFF;
+}
+
+.action-share {
+    padding-right: 20px;
+    color: #60B84B;
+}
+
+.action-del {
+    padding-right: 20px;
+    color: red;
+}
+
+.even-row {
+    background-color: white; 
+}
+
+
+.odd-row {
+    background-color:  #B3C4FF;
+}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import styles from './QuizModal.module.css'; // Import the CSS Module
+import styles from './QuizModal.module.css'; 
 import axios from 'axios';
 
 const CreateQuizModal = ({ isOpen, onClose }) => {
   const [quizName, setQuizName] = useState('');
-  const [quizType, setQuizType] = useState('Q&A');
+  const [quizType, setQuizType] = useState('q&a');
 
   const handleQuizNameChange = (e) => {
     setQuizName(e.target.value);
@@ -22,7 +22,7 @@ const CreateQuizModal = ({ isOpen, onClose }) => {
       quizType: quizType,
     };
 
-    axios.post('/api/quiz/create', data)
+    axios.post('/quiz/create', data)
       .then(response => {
         console.log("Quiz created successfully", response.data);
       })

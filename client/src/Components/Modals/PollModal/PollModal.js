@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
-import './PollModal.css'
+import './PollModal.css';
 
 function PollModal() {
   const [question, setQuestion] = useState('');
@@ -18,16 +18,33 @@ function PollModal() {
     setIsModalOpen(false);
   };
 
-  const createQuestion = () => {
-    // You can perform your logic to add the question to the poll here
-    console.log('Question:', question);
-    console.log('Options:', options);
-    console.log('Timer:', timer);
-    console.log('Text URLs:', textUrls);
-    console.log('Image URLs:', imageUrls);
+  const createQuestion = async () => {
+    const pollData = {
+      question,
+      options,
+      timer,
+      textUrls,
+      imageUrls,
+    };
 
-    // Close the modal
-    setIsModalOpen(false);
+    try {
+      const response = await fetch('http://localhost:4000/quiz/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(pollData),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json(); // Parse the JSON response
+        console.log(responseData); // Now, you can access the data from the response
+      } else {
+        console.error('Failed to create the poll');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const addTextUrlInput = () => {
@@ -49,14 +66,14 @@ function PollModal() {
   };
 
   return (
-    <div className='container' >
+    <div className="container">
       <button className="create-quiz-button" onClick={openModal}>
         Create Poll
       </button>
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <div className='modal-header' >
+            <div className="modal-header">
               <button>1</button>
               <p>Max 5 questions</p>
             </div>
@@ -102,142 +119,139 @@ function PollModal() {
                   </label>
                 </div>
               </div>
-              
             </div>
-            <div  className='mid'  >
-            {options === 'text' && (
-              <div  className='text-options' >
-                <label htmlFor="textUrls">Text</label>
-                {textUrls.map((textUrl, index) => (
-                  <div key={index}>
-                    <input
-                      type="text"
-                      value={textUrl}
-                      id={'text-input'}
-                      placeholder='Text'
-                      onChange={(e) => {
-                        const updatedTextUrls = [...textUrls];
-                        updatedTextUrls[index] = e.target.value;
-                        setTextUrls(updatedTextUrls);
-                      }}
-                    />
-                    {index > 0 && (
-                      <FaTrash
-                        onClick={() => {
+            <div className="mid">
+              {options === 'text' && (
+                <div className="text-options">
+                  <label htmlFor="textUrls">Text</label>
+                  {textUrls.map((textUrl, index) => (
+                    <div key={index}>
+                      <input
+                        type="text"
+                        value={textUrl}
+                        id={'text-input'}
+                        placeholder="Text"
+                        onChange={(e) => {
                           const updatedTextUrls = [...textUrls];
-                          updatedTextUrls.splice(index, 1);
+                          updatedTextUrls[index] = e.target.value;
                           setTextUrls(updatedTextUrls);
                         }}
-                        className="delete-icon"
                       />
-                    )}
-                  </div>
-                ))}
-                {textUrls.length < 4 && (
-                  <button className='btn' onClick={addTextUrlInput}>+</button>
-                )}
-              </div>
-            )}
-            {options === 'image' && (
-              <div>
-                <label htmlFor="imageUrls">Image URL</label>
-                {imageUrls.map((imageUrl, index) => (
-                  <div key={index}>
-                    <input
-                      type="text"
-                      value={imageUrl}
-                      onChange={(e) => {
-                        const updatedImageUrls = [...imageUrls];
-                        updatedImageUrls[index] = e.target.value;
-                        setImageUrls(updatedImageUrls);
-                      }}
-                    />
-                    {index > 0 && (
-                      <FaTrash
-                        onClick={() => {
-                          const updatedImageUrls = [...imageUrls];
-                          updatedImageUrls.splice(index, 1);
-                          setImageUrls(updatedImageUrls);
-                        }}
-                        className="delete-icon"
-                      />
-                    )}
-                  </div>
-                ))}
-                {imageUrls.length < 4 && (
-                  <button onClick={addImageUrlInput}>+</button>
-                )}
-              </div>
-            )}
-            {options === 'text_image' && (
-              <div>
-                <div className="text-image-inputs">
-                  <div className="text-inputs">
-                    {textUrls.map((textUrl, index) => (
-                      <div key={index}>
-                        <input
-                          type="text"
-                          value={textUrl}
-                          onChange={(e) => {
+                      {index > 0 && (
+                        <FaTrash
+                          onClick={() => {
                             const updatedTextUrls = [...textUrls];
-                            updatedTextUrls[index] = e.target.value;
+                            updatedTextUrls.splice(index, 1);
                             setTextUrls(updatedTextUrls);
                           }}
+                          
+                          className="delete-icon"
                         />
-                        {index > 0 && (
-                          <FaTrash
-                            onClick={() => {
-                              const updatedTextUrls = [...textUrls];
-                              updatedTextUrls.splice(index, 1);
-                              setTextUrls(updatedTextUrls);
-                            }}
-                            className="delete-icon"
-                          />
-                        )}
-                      </div>
-                    ))}
-                    {textUrls.length < 4 && (
-                      <button onClick={addTextUrlInput}>+</button>
-                    )}
-                  </div>
-                  <div className="image-inputs">
-                    {imageUrls.map((imageUrl, index) => (
-                      <div key={index}>
-                        <input
-                          type="text"
-                          value={imageUrl}
-                          onChange={(e) => {
+                      )}
+                    </div>
+                  ))}
+                  {textUrls.length < 4 && (
+                    <button className="btn" onClick={addTextUrlInput}>
+                      +
+                    </button>
+                  )}
+                </div>
+              )}
+              {options === 'image' && (
+                <div>
+                  <label htmlFor="imageUrls">Image URL</label>
+                  {imageUrls.map((imageUrl, index) => (
+                    <div key={index}>
+                      <input
+                        type="text"
+                        value={imageUrl}
+                        onChange={(e) => {
+                          const updatedImageUrls = [...imageUrls];
+                          updatedImageUrls[index] = e.target.value;
+                          setImageUrls(updatedImageUrls);
+                        }}
+                      />
+                      {index > 0 && (
+                        <FaTrash
+                          onClick={() => {
                             const updatedImageUrls = [...imageUrls];
-                            updatedImageUrls[index] = e.target.value;
+                            updatedImageUrls.splice(index, 1);
                             setImageUrls(updatedImageUrls);
                           }}
+                          className="delete-icon"
                         />
-                        {index > 0 && (
-                          <FaTrash
-                            onClick={() => {
+                      )}
+                    </div>
+                  ))}
+                  {imageUrls.length < 4 && (
+                    <button onClick={addImageUrlInput}>+</button>
+                  )}
+                </div>
+              )}
+              {options === 'text_image' && (
+                <div>
+                  <div className="text-image-inputs">
+                    <div className="text-inputs">
+                      {textUrls.map((textUrl, index) => (
+                        <div key={index}>
+                          <input
+                            type="text"
+                            value={textUrl}
+                            onChange={(e) => {
+                              const updatedTextUrls = [...textUrls];
+                              updatedTextUrls[index] = e.target.value;
+                              setTextUrls(updatedTextUrls);
+                            }}
+                          />
+                          {index > 0 && (
+                            <FaTrash
+                              onClick={() => {
+                                const updatedTextUrls = [...textUrls];
+                                updatedTextUrls.splice(index, 1);
+                                setTextUrls(updatedTextUrls);
+                              }}
+                              className="delete-icon"
+                            />
+                          )}
+                        </div>
+                      ))}
+                      {textUrls.length < 4 && (
+                        <button onClick={addTextUrlInput}>+</button>
+                      )}
+                    </div>
+                    <div className="image-inputs">
+                      {imageUrls.map((imageUrl, index) => (
+                        <div key={index}>
+                          <input
+                            type="text"
+                            value={imageUrl}
+                            onChange={(e) => {
                               const updatedImageUrls = [...imageUrls];
-                              updatedImageUrls.splice(index, 1);
+                              updatedImageUrls[index] = e.target.value;
                               setImageUrls(updatedImageUrls);
                             }}
-                            className="delete-icon"
                           />
-                        )}
-                      </div>
-                    ))}
-                    {imageUrls.length < 4 && (
-                      <button onClick={addImageUrlInput}>+</button>
-                    )}
+                          {index > 0 && (
+                            <FaTrash
+                              onClick={() => {
+                                const updatedImageUrls = [...imageUrls];
+                                updatedImageUrls.splice(index, 1);
+                                setImageUrls(updatedImageUrls);
+                              }}
+                              className="delete-icon"
+                            />
+                          )}
+                        </div>
+                      ))}
+                      {imageUrls.length < 4 && (
+                        <button onClick={addImageUrlInput}>+</button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-
-
-
-
-            <div className="timer">
+              )}
+              <div className="timer">
                 <label htmlFor="timer">Timer</label>
-                
                 <button
                   className={timer === '0' ? 'selected' : 'timer-button'}
                   onClick={() => setTimer('5')}
@@ -250,7 +264,6 @@ function PollModal() {
                 >
                   10 seconds
                 </button>
-
                 <button
                   className={timer === 'off' ? 'selected' : 'timer-button'}
                   onClick={() => setTimer('off')}
@@ -259,8 +272,7 @@ function PollModal() {
                 </button>
               </div>
             </div>
-            
-          <div className="buttons">
+            <div className="buttons">
               <button className="add-question-button" onClick={createQuestion}>
                 Add Question
               </button>
@@ -269,11 +281,8 @@ function PollModal() {
               </button>
             </div>
           </div>
-
         </div>
       )}
-
-      
     </div>
   );
 }

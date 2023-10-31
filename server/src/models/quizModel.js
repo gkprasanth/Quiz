@@ -36,13 +36,30 @@ const quizSchema = new mongoose.Schema({
   },
   title: String,
   description: String,
-  createdOn: Date,
+  createdOn: {
+    type: Date,
+    default: Date.now,
+  },
   impression: Number,
-  questions: [mongoose.Schema.Types.Mixed],
+  questions: [
+    {
+      question_id: String, 
+      question_title: String,
+      options: [
+        {
+          option_id: String, 
+          text: String,
+          imageUrl: String,
+          votes: Number,
+        },
+      ],
+    },
+  ],
   results: [resultSchema],
   shareLink: String,
-}, 
+},
 { timestamps: true });
+
 
 quizSchema.pre('save', function (next) {
   const uniqueShareLink = UniqueShareLink();

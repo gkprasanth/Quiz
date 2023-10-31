@@ -2,16 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaShare } from 'react-icons/fa';
 import DeleteModal from '../Components/Modals/DeleteModal/DeleteModal';
+import EditModal from '../Components/Modals/EditModal/EditModal';
 import axios from 'axios';
 
-import '../App.css';
+import './Analytics.css';
 
 const API_BASE_URL = 'http://localhost:4000/quiz';
+
+function formatISODate(isoDate) {
+  const date = new Date(isoDate);
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  };
+
+  return date.toLocaleString('en-US', options);
+}
 
 const Analytics = () => {
   const [quizData, setQuizData] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedQuizId, setSelectedQuizId] = useState();
+  const [selectedQuizId, setSelectedQuizId] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(() => {
@@ -23,7 +39,6 @@ const Analytics = () => {
       .get(`${API_BASE_URL}/list`)
       .then((response) => {
         setQuizData(response.data);
-        console.log(response)
       })
       .catch((error) => {
         console.error('Error fetching quiz data:', error);
@@ -45,11 +60,11 @@ const Analytics = () => {
       .then(() => {
         fetchQuizData();
         setDeleteModalOpen(false);
-        console.log(selectedQuizId)
+        setSelectedQuizId(null);
+        
       })
       .catch((error) => {
         console.error('Error deleting quiz:', error);
-        console.log(selectedQuizId)
       });
   };
 
@@ -68,6 +83,8 @@ const Analytics = () => {
       .then(() => {
         fetchQuizData();
         setEditModalOpen(false);
+        setSelectedQuizId(null)
+
       })
       .catch((error) => {
         console.error('Error editing quiz:', error);
@@ -92,7 +109,7 @@ const Analytics = () => {
             <tr key={quiz._id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
               <td>{index + 1}</td>
               <td>{quiz.name}</td>
-              <td>{quiz.createdAt}</td>
+              <td>{formatISODate(quiz.createdOn)}</td>
               <td>{quiz.impression}</td>
               <td>
                 <span className="action-edit" onClick={() => openEditModal(quiz)}>
@@ -121,15 +138,15 @@ const Analytics = () => {
           quiz={selectedQuizId}
         />
       )}
-{/* 
-      {/* {isEditModalOpen && (
+
+      {isEditModalOpen && (
         <EditModal
           isOpen={isEditModalOpen}
           onRequestClose={closeEditModal}
           onEdit={handleEdit}
-          quiz={selectedQuizId}
-        /> */}
-      }} */}
+          quiz={quizData.find((quiz) => quiz._id === selectedQuizId)}
+        />
+      )}
     </div>
   );
 };
